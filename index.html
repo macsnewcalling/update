@@ -23,7 +23,7 @@
       font-weight: bold;
       margin-bottom: 40px;
       text-align: center;
-      color: #00ffff;
+      color: white; /* Updated */
     }
 
     #percentage {
@@ -35,7 +35,7 @@
 
     #timer {
       font-size: 24px;
-      color: #ffffff;
+      color: white; /* Updated */
       margin-bottom: 20px;
     }
 
@@ -55,7 +55,7 @@
   <div class="progress">Please wait... Do not turn off your computer.</div>
 
   <script>
-    let totalSeconds = 80 * 60; // 1 hour 40 minutes
+    let totalSeconds = 100 * 60; // 1 hour 40 minutes = 6000 seconds
     let percent = 0;
     let secondsPassed = 0;
 
@@ -69,18 +69,18 @@
     }
 
     function updateDisplay() {
-      // Update timer
+      // Remaining time
       const remaining = totalSeconds - secondsPassed;
-      document.getElementById("timer").innerText = 
+      document.getElementById("timer").innerText =
         "Time Remaining: " + formatTime(remaining);
 
-      // Update percentage every 60 seconds
+      // Increase percent every minute
       if (secondsPassed % 60 === 0 && percent < 100) {
         percent++;
         document.getElementById("percentage").innerText = percent + "%";
       }
 
-      // Complete condition
+      // Completion
       if (secondsPassed >= totalSeconds) {
         clearInterval(timerInterval);
         document.getElementById("percentage").innerText = "✅ Scan Complete";
@@ -90,7 +90,7 @@
       secondsPassed++;
     }
 
-    updateDisplay(); // initial call
+    updateDisplay(); // Initial call
     const timerInterval = setInterval(updateDisplay, 1000);
   </script>
 </body>
