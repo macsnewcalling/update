@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Windows Network Security Scan</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: lime;
+      font-family: 'Courier New', monospace;
+      font-size: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .scan-title {
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    .progress {
+      margin-top: 30px;
+      font-size: 22px;
+    }
+
+    #percentage {
+      font-size: 60px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #0f0;
+    }
+
+    #timer {
+      font-size: 26px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scan-title">🔒 Windows Network Security Scan is Running...</div>
+  
+  <div id="percentage">0%</div>
+  <div id="timer">Time Remaining: 01:40:00</div>
+  <div class="progress">Please wait... Do not turn off your computer.</div>
+
+  <script>
+    let totalMinutes = 100;
+    let secondsLeft = totalMinutes * 60;
+    let percent = 0;
+
+    function updateUI() {
+      // Update percentage
+      percent++;
+      document.getElementById("percentage").innerText = percent + "%";
+
+      // Update timer
+      let mins = Math.floor(secondsLeft / 60);
+      let secs = secondsLeft % 60;
+      let formatted = 
+        (mins < 10 ? "0" : "") + mins + ":" + 
+        (secs < 10 ? "0" : "") + secs;
+      document.getElementById("timer").innerText = "Time Remaining: " + formatted;
+    }
+
+    // Update every 60 seconds (1 minute)
+    updateUI(); // First time
+    let percentageInterval = setInterval(() => {
+      if (percent >= 100) {
+        clearInterval(percentageInterval);
+        document.getElementById("percentage").innerText = "✅ Scan Complete";
+        document.getElementById("timer").innerText = "Finished";
+        return;
+      }
+      secondsLeft -= 60;
+      updateUI();
+    }, 60000);
+  </script>
+</body>
+</html>
